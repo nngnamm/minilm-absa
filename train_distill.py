@@ -54,8 +54,8 @@ def main():
             task_loss = mse_loss_fn(student_outputs.logits.squeeze(-1), batch["labels"])
 
             minilm_loss = calculate_minilm_loss(
-                teacher_model=teacher_model,
-                student_model=student_model,
+                teacher_model=accelerator.unwrap_model(teacher_model),
+                student_model=accelerator.unwrap_model(student_model),
                 teacher_outputs=teacher_outputs,
                 student_outputs=student_outputs,
                 temperature=config.temperature
