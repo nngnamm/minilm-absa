@@ -44,7 +44,8 @@ def main():
         total_loss = 0
         for batch in train_dataloader:
             batch["output_attentions"] = True
-            
+            batch["output_hidden_states"] = True
+
             with torch.no_grad():
                 teacher_outputs = teacher_model(**batch)
 
@@ -53,8 +54,10 @@ def main():
             task_loss = mse_loss_fn(student_outputs.logits.squeeze(-1), batch["labels"])
 
             minilm_loss = calculate_minilm_loss(
-                teacher_outputs.attentions, 
-                student_outputs.attentions, 
+                teacher_model=teacher_model,
+                student_model=student_model,
+                teacher_outputs=teacher_outputs,
+                student_outputs=student_outputs,
                 temperature=config.temperature
             )
 
