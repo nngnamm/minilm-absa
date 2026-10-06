@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class DistillConfig:
-    teacher_model_name: str = "bert-base-uncased"
+    teacher_model_name: str = "./outputs/teacher_absa_expert"
     dataset_name: str = "tomaarsen/setfit-absa-semeval-restaurants"
     output_dir: str = "./outputs/minilm_absa_student_4L"
 
